@@ -34,16 +34,16 @@ def print_logo():
 
 def main_menu():
     while True:
-        print_logo()
-        print("\n** Welcome at the Basic-Fit pingpong league 🏓 **")
-        print("\nWhat do you want to do?\n")
+        # print_logo()
+        print("\n\033[1;38;5;208m** Welcome at the Basic-Fit pingpong league 🏓 **")
+        print("\nWhat do you want to do?\033[0m")
         print("1. Add Player")
         print("2. Add match")
         print("3. Watch ranking")
         print("4. Read the rules")
         print("5. Stop")
 
-        choice = input("\nSelect (1-5): ").strip()
+        choice = input("\n\033[4;38;5;208mSelect (1-5):\033[0m ").strip()
         if choice == "1":
             add_player()
         elif choice == "2":
@@ -55,21 +55,21 @@ def main_menu():
         elif choice == "5":
             break
         else:
-            print("You're not a QA for this. Select something good!\n")
+            print("\n\033[1;31mYou're not a QA for this. Select something good!\033[0m\n\n")
 
 def add_player():
     git_pull()
     data = load_data()
-    name = input("Add name for the player (firstname lastname or STOP to cancel): ").strip()
+    name = input("\033[4;38;5;208mAdd name for the player (firstname lastname or STOP to cancel):\033[0m ").strip()
     if name.lower() == "stop":
         return
     if name in [p["name"] for p in data["players"]]:
-        print("This player is already added!\n")
+        print("\033[1;31mThis player is already added!\033[0m\n\n")
         return
     data["players"].append({"name": name, "rating": INITIAL_RATING})
     save_data(data)
     git_push(f"Added player '{name}'")
-    print(f"Player '{name}' added!\n")
+    print(f"\033[1;32mPlayer '{name}' added!\033[0m\n\n")
 
 def list_players(data):
     for i, p in enumerate(data["players"], 1):
@@ -79,7 +79,7 @@ def list_players(data):
 def get_player_selection(prompt, data):
     list_players(data)
     while True:
-        sel = input(prompt + " (or STOP to cancel): ").strip()
+        sel = input(prompt + "\033[4;38;5;208m (or STOP to cancel):\033[0m ").strip()
         if sel.lower() == "stop":
             return None
         try:
@@ -88,28 +88,28 @@ def get_player_selection(prompt, data):
                 return data["players"][i]
         except ValueError:
             pass
-        print("You're testing again? Try again.")
+        print("\033[1;31mYou're testing again? Try again.\033[0m\n\n")
 
 def add_match():
     git_pull()
     data = load_data()
     if len(data["players"]) < 2:
-        print("You can't play solo at pingpong!\n")
+        print("\033[1;31mYou can't play solo at pingpong!\033[0m\n\n")
         return
 
-    print("Select player 1 (winner):")
-    p1 = get_player_selection("Number: ", data)
+    print("\033[1;38;5;208mSelect player 1 (winner):\033[0m")
+    p1 = get_player_selection("\033[4;38;5;208mNumber:\033[0m", data)
     if not p1:
         return
 
-    print("Select player 2 (loser):")
+    print("\033[1;38;5;208mSelect player 2 (loser):\033[0m")
     while True:
-        p2 = get_player_selection("Number: ", data)
+        p2 = get_player_selection("\033[4;38;5;208mNumber:\033[0m", data)
         if p2 is None:
             return
         if p2["name"] != p1["name"]:
             break
-        print("Player 2 can't be the same as player 1.")
+        print("\033[1;31mPlayer 2 can't be the same as player 1.\033[0m\n\n")
 
     score = input("Enter result (eg. 11-9, 11-6, 11-8): ").strip()
 
@@ -129,14 +129,21 @@ def show_ladder():
     git_pull()
     data = load_data()
     sorted_players = sorted(data["players"], key=lambda p: p["rating"], reverse=True)
-    print_logo()
-    print("🏓 Current ranking:\n")
+    # print_logo()
+    print("\n\t\033[1;38;5;208m🏓 Current ranking:\033[0m\n")
     for i, p in enumerate(sorted_players, 1):
-        print(f"{i:2}. {p['name']:<20} {p['rating']} points")
-    print()
+        if i == 1:
+            print(f"\033[38;5;208m\t 🏆 {p['name']:<20}{p['rating']} points\033[0m")
+        elif i == 2:
+            print(f"\033[38;5;250m\t 🥈 {p['name']:<20}{p['rating']} points\033[0m")
+        elif i == 3:
+            print(f"\033[38;5;94m\t 🥉 {p['name']:<20}{p['rating']} points\033[0m")
+        else:
+            print(f"\033[38;5;245m\t{i:2}. {p['name']:<20}{p['rating']} points\033[0m")
+    print("\n\n")
 
 def show_rules():
-    print("Basic-Fit pingpong league rules:")
+    print("\n\n\033[1;38;5;208mBasic-Fit pingpong league rules:\033[0m")
     print("- A match goes to 11 points.")
     print("- To win a match you need 2 points difference.")
     print("- Service changes every 2 points.")

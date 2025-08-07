@@ -1,21 +1,4 @@
 {
-  "players": [
-    {
-      "name": "Nico Martens",
-      "rating": 1500
-    },
-    {
-      "name": "Vilajet Cela",
-      "rating": 1500
-    },
-    {
-      "name": "Test Test",
-      "rating": 1500
-    },
-    {
-      "name": "Test Test2",
-      "rating": 1500
-    }
-  ],
+  "players": [],
   "matches": []
 }
