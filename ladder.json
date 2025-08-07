@@ -11,6 +11,10 @@
     {
       "name": "Test Test",
       "rating": 1500
+    },
+    {
+      "name": "Test Test2",
+      "rating": 1500
     }
   ],
   "matches": []
