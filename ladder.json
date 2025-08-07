@@ -2,12 +2,18 @@
   "players": [
     {
       "name": "Aleksander Lekov",
-      "rating": 1500
+      "rating": 1516
     },
     {
       "name": "Nico Martens",
-      "rating": 1500
+      "rating": 1484
     }
   ],
-  "matches": []
+  "matches": [
+    {
+      "winner": "Aleksander Lekov",
+      "loser": "Nico Martens",
+      "score": "11-9"
+    }
+  ]
 }
