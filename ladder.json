@@ -1,4 +1,9 @@
 {
-  "players": [],
+  "players": [
+    {
+      "name": "Aleksander Lekov",
+      "rating": 1500
+    }
+  ],
   "matches": []
 }
